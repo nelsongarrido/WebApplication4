@@ -208,6 +208,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="123-slideshow\25972-1.png" />
+    <Content Include="123-slideshow\25972-2.png" />
+    <Content Include="123-slideshow\25972-3.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -218,6 +221,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\nyc.jpg" />
+    <Content Include="img\englishasap.png" />
     <Content Include="img\portfolio\cabin.png" />
     <Content Include="img\portfolio\cake.png" />
     <Content Include="img\portfolio\circus.png" />
@@ -357,6 +362,8 @@
     <Content Include="Views\Home\MyControls\_about.cshtml" />
     <Content Include="Views\Home\MyControls\_contact.cshtml" />
     <Content Include="Views\Home\MyControls\_footer.cshtml" />
+    <Content Include="Views\Home\MyControls\_cursos.cshtml" />
+    <Content Include="Views\Home\MyControls\_visas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
