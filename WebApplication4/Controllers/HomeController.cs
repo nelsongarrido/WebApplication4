@@ -26,11 +26,19 @@ namespace WebApplication4.Controllers
 
             return View();
         }
+
         public ActionResult View1()
         {
+            //var currentClaims = ClaimsPrincipal.Current;
+
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Login()
+        {
+            return RedirectToAction("View1");
         }
     }
 }

@@ -40,20 +40,24 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio" style="color:gray">Classroom</a>
+                        <a href="#portfolio" style="font-size:x-small ;color:gray">Classroom</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about" style="color:gray">Nuestro método</a>
+                        <a href="#about" style="font-size:x-small ;color:gray">Nuestro método</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#cursos" style="color:gray">Cursos</a>
+                        <a href="#cursos" style="font-size:x-small ;color:gray">Cursos</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#visas" style="color:gray">Visas USA</a>
+                        <a href="#visas" style="font-size:x-small ;color:gray">Visas USA</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#contact" style="color:gray">Contact</a>
+                        <a href="#contact" style="font-size:x-small ;color:gray">Contact</a>
                     </li>
+                    <li style="font-size:x-small ;color:gray">
+                        @Html.ActionLink("Login", "Login")
+                    </li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -62,8 +66,8 @@
     </nav>
 
     <!-- Header -->
-    <header>
-        <div class="container" id="container">
+    <header style="background-color: transparent;">
+        <div class="container" id="container" style="background-image: url(../../img/nyc.jpg)">
             @RenderSection("container", true)
         </div>
     </header>
