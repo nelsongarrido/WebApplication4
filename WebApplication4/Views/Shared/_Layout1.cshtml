@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using System.Configuration
+@using System.Security.Claims;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -21,8 +24,32 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
 </head>
 <body id="page-top" class="index">
+
+    <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+    <script type="text/javascript">
+        var lock = new Auth0Lock('@ConfigurationManager.AppSettings["auth0:ClientId"]',
+                                 '@ConfigurationManager.AppSettings["auth0:Domain"]',
+            {
+                auth: {
+                    redirectUrl: 'http://localhost:1477/LoginCallback.ashx'
+                  , responseType: 'code'
+                  , params: {
+                      scope: 'openid profile'
+                  }
+                }
+            });
+
+
+        function signin() {
+            lock.show();
+            alert('dddd');
+        }
+    </script>
+
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom" style="background-color:white">
         <div class="container">
@@ -54,8 +81,36 @@
                     <li class="page-scroll">
                         <a href="#contact" style="font-size:x-small ;color:gray">Contact</a>
                     </li>
-                    <li style="font-size:x-small ;color:gray">
-                        @Html.ActionLink("Login", "Login")
+                    <li class="page-scroll">
+                        @*<button type="button" class="btn btn-link">Default</button>*@
+                        @if (@ClaimsPrincipal.Current.Identity.IsAuthenticated)
+                        {
+                            @*<a href="/Home/Logout" style="font-size:x-small ;color:gray">@ViewBag.Name</a>*@
+
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                    @ViewBag.Name
+                                </button>
+                                <ul class="dropdown-menu">
+                                    @foreach (var x in @ViewBag.Desafios)
+                                    {
+                                        <li><a href=@x.Value style="font-size:x-small ;color:gray">@x.Key</a></li>
+                                    }
+                                    @*<li><a href="#" style="font-size:x-small ;color:gray">HTML</a></li>
+                                        <li><a href="#">CSS</a></li>
+                                        <li><a href="#">JavaScript</a></li>*@
+                                </ul>
+                            </div>
+
+
+                        }
+                        else
+                        {
+                            @*@Html.ActionLink("Login", "Login")*@
+                            <a style="font-size:x-small ;color:gray" onclick="window.signin();">Login</a>
+                            @*<p><a href="#" class="btn btn-primary btn-lg" onclick="window.signin();">Login with Auth0</a></p>*@
+                        }
+
                     </li>
 
                 </ul>
@@ -64,6 +119,7 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+
 
     <!-- Header -->
     <header style="background-color: transparent;">

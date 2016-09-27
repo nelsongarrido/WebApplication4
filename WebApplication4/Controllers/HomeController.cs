@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Services;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace WebApplication4.Controllers
 {
@@ -10,6 +13,17 @@ namespace WebApplication4.Controllers
     {
         public ActionResult Index()
         {
+            var currentClaims = ClaimsPrincipal.Current;
+
+            if (currentClaims.Identity.IsAuthenticated)
+            {
+                string name = currentClaims.FindFirst("name").Value;
+                ViewBag.Name = name;
+                ViewBag.Desafios = new Dictionary<string, string> { { "1", "Desafrio 1" }, {"2", "Desafio 2" } };
+            }
+            else ViewBag.Name = "";
+
+
             return View();
         }
 
@@ -39,6 +53,13 @@ namespace WebApplication4.Controllers
         public ActionResult Login()
         {
             return RedirectToAction("View1");
+        }
+
+        public ActionResult Logout()
+        {
+            System.IdentityModel.Services.FederatedAuthentication.SessionAuthenticationModule.SignOut();
+
+            return RedirectToAction("Index");
         }
     }
 }
