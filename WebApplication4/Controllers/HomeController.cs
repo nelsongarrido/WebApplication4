@@ -61,5 +61,17 @@ namespace WebApplication4.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult ViewLyubomir()
+        {
+            return PartialView("_Desafio1");
+        }
+
+        [HttpPost]
+        public ActionResult Lyubomir()
+        {
+            return RedirectToAction("Index");
+        }
+
     }
 }

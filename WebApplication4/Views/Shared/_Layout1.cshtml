@@ -25,9 +25,118 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
+    @Scripts.Render("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
 
+    <style>
+        .modal-content {
+            width: 600px !important;
+            margin: 30px auto !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(function () {
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
+
+            // Initalize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+        });
+    </script>
 </head>
 <body id="page-top" class="index">
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
+
+            // Initalize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+        });
+    </script>
 
     <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
     <script type="text/javascript">
@@ -62,6 +171,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">
                         <a href="#page-top"></a>
@@ -81,45 +191,35 @@
                     <li class="page-scroll">
                         <a href="#contact" style="font-size:x-small ;color:gray">Contact</a>
                     </li>
-                    <li class="page-scroll">
-                        @*<button type="button" class="btn btn-link">Default</button>*@
+                    <li>
                         @if (@ClaimsPrincipal.Current.Identity.IsAuthenticated)
                         {
-                            @*<a href="/Home/Logout" style="font-size:x-small ;color:gray">@ViewBag.Name</a>*@
-
                             <div class="dropdown">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style="font-size:x-small ;color:gray">
                                     @ViewBag.Name
+                                    <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    @foreach (var x in @ViewBag.Desafios)
-                                    {
-                                        <li><a href=@x.Value style="font-size:x-small ;color:gray">@x.Key</a></li>
-                                    }
-                                    @*<li><a href="#" style="font-size:x-small ;color:gray">HTML</a></li>
-                                        <li><a href="#">CSS</a></li>
-                                        <li><a href="#">JavaScript</a></li>*@
+                                    <li><a href="#" style="font-size:x-small ;color:gray">HTML</a></li>
+                                    <li><a href="#" style="font-size:x-small ;color:gray">CSS</a></li>
+                                    <li><a href="/Home/Logout/" style="font-size:x-small ;color:gray">Logout</a></li>
                                 </ul>
                             </div>
-
-
                         }
                         else
                         {
                             @*@Html.ActionLink("Login", "Login")*@
-                            <a style="font-size:x-small ;color:gray" onclick="window.signin();">Login</a>
+                            <a style="font-size:x-small ;color:gray" onclick="window.signin();" href="#">Login</a>
                             @*<p><a href="#" class="btn btn-primary btn-lg" onclick="window.signin();">Login with Auth0</a></p>*@
                         }
-
                     </li>
-
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
-    </nav>
 
+    </nav>
 
     <!-- Header -->
     <header style="background-color: transparent;">
@@ -420,7 +520,7 @@
             </div>
         </div>
     </div>
-    @RenderBody()
+    @*@RenderBody()*@
     <!-- jQuery -->
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -432,5 +532,7 @@
     <script src="~/js/contact_me.js"></script>
     <!-- Theme JavaScript -->
     <script src="~/js/freelancer.min.js"></script>
+
+
 </body>
 </html>
