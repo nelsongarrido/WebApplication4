@@ -99,15 +99,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
-    <div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-content">
-        </div>
-    </div>
-
     <script type="text/javascript">
         $(function () {
             // Initialize numeric spinner input boxes
@@ -200,14 +191,17 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" style="font-size:x-small ;color:gray">HTML</a></li>
-                                    <li><a href="#" style="font-size:x-small ;color:gray">CSS</a></li>
-                                    <li><a href="/Home/Logout/" style="font-size:x-small ;color:gray">Logout</a></li>
+                                    @foreach (var item in @ViewBag.Desafios)
+                                    {
+                                        <li>  @Html.ActionLink((string)item.Nombre, (string)item.Accion, (string)item.Controladora, null, new { @class = "modal-link", @style = "font-size:x-small ; color: gray" })</li>
+                                    }
+                                    <li>  @Html.ActionLink("Logout ", "Logout", "Home", null, new { @style = "font-size:x-small ; color: gray" })</li>
+                                    @*<li><a href="/Home/Logout/" style="font-size:x-small ;color:gray">Logout</a></li>*@
                                 </ul>
                             </div>
                         }
-                        else
-                        {
+                                    else
+                                    {
                             @*@Html.ActionLink("Login", "Login")*@
                             <a style="font-size:x-small ;color:gray" onclick="window.signin();" href="#">Login</a>
                             @*<p><a href="#" class="btn btn-primary btn-lg" onclick="window.signin();">Login with Auth0</a></p>*@

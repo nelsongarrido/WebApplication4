@@ -13,13 +13,17 @@ namespace WebApplication4.Controllers
     {
         public ActionResult Index()
         {
+            Models.AsapEntities _dbClient = new Models.AsapEntities();
+
             var currentClaims = ClaimsPrincipal.Current;
 
             if (currentClaims.Identity.IsAuthenticated)
             {
                 string name = currentClaims.FindFirst("name").Value;
-                ViewBag.Name = name;
-                ViewBag.Desafios = new Dictionary<string, string> { { "1", "Desafrio 1" }, {"2", "Desafio 2" } };
+                var usuario = _dbClient.Usuario.FirstOrDefault(f => f.Email == name);
+
+                ViewBag.Name = usuario?.Nombre ?? name;
+                ViewBag.Desafios = usuario?.Desafios.ToList();
             }
             else ViewBag.Name = "";
 
@@ -62,16 +66,19 @@ namespace WebApplication4.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ViewLyubomir()
+        public ActionResult Desafio1()
         {
-            return PartialView("_Desafio1");
+            return PartialView("MyPartialViews/_Desafio1");
         }
 
-        [HttpPost]
-        public ActionResult Lyubomir()
+        public ActionResult Desafio2()
         {
-            return RedirectToAction("Index");
+            return PartialView("MyPartialViews/_Desafio1");
         }
 
+        public ActionResult CrearDesafio()
+        {
+            return PartialView("MyPartialViews/_CrearDesafio");
+        }
     }
 }
