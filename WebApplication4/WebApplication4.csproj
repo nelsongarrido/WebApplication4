@@ -254,6 +254,7 @@
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UsuarioDesafioCustom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -333,6 +334,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MyScripts\CrearDesafio.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -434,6 +436,7 @@
     <Content Include="Views\Home\MyControls\_visas.cshtml" />
     <Content Include="Views\Home\MyPartialViews\_Desafio1.cshtml" />
     <Content Include="Views\Home\MyPartialViews\_CrearDesafio.cshtml" />
+    <Content Include="Views\Home\MyPartialViews\_AddDesafio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

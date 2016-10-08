@@ -13,6 +13,7 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Accion" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Controladora" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -23,34 +24,14 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EsProfesor" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="UsuarioDesafios">
-          <Key>
-            <PropertyRef Name="UsuarioID" />
-            <PropertyRef Name="DesafioID" />
-          </Key>
-          <Property Name="UsuarioID" Type="int" Nullable="false" />
-          <Property Name="DesafioID" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_UsuarioDesafios_Desafio">
-          <End Role="Desafio" Type="Self.Desafio" Multiplicity="1" />
-          <End Role="UsuarioDesafios" Type="Self.UsuarioDesafios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Desafio">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UsuarioDesafios">
-              <PropertyRef Name="DesafioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuarioDesafios_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="UsuarioDesafios" Type="Self.UsuarioDesafios" Multiplicity="*" />
+        <Association Name="FK_Desafio_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Desafio" Type="Self.Desafio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="UsuarioDesafios">
+            <Dependent Role="Desafio">
               <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
@@ -58,51 +39,55 @@
         <EntityContainer Name="AsapModelStoreContainer">
           <EntitySet Name="Desafio" EntityType="Self.Desafio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsuarioDesafios" EntityType="Self.UsuarioDesafios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_UsuarioDesafios_Desafio" Association="Self.FK_UsuarioDesafios_Desafio">
-            <End Role="Desafio" EntitySet="Desafio" />
-            <End Role="UsuarioDesafios" EntitySet="UsuarioDesafios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuarioDesafios_Usuario" Association="Self.FK_UsuarioDesafios_Usuario">
+          <AssociationSet Name="FK_Desafio_Usuario" Association="Self.FK_Desafio_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="UsuarioDesafios" EntitySet="UsuarioDesafios" />
+            <End Role="Desafio" EntitySet="Desafio" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AsapModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AsapEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Desafio" EntityType="AsapModel.Desafio" />
+          <EntitySet Name="Usuario" EntityType="AsapModel.Usuario" />
+          <AssociationSet Name="FK_Desafio_Usuario" Association="AsapModel.FK_Desafio_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Desafio" EntitySet="Desafio" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Desafio">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Accion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Accion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Controladora" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Usuario" Relationship="AsapModel.UsuarioDesafios" FromRole="Desafio" ToRole="Usuario" />
+          <Property Name="UsuarioID" Type="Int32" />
+          <NavigationProperty Name="Usuario" Relationship="AsapModel.FK_Desafio_Usuario" FromRole="Desafio" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EsProfesor" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Desafios" Relationship="AsapModel.UsuarioDesafios" FromRole="Usuario" ToRole="Desafio" />
+          <NavigationProperty Name="Desafios" Relationship="AsapModel.FK_Desafio_Usuario" FromRole="Usuario" ToRole="Desafio" />
         </EntityType>
-        <EntityContainer Name="AsapEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Desafio" EntityType="Self.Desafio" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="UsuarioDesafios" Association="AsapModel.UsuarioDesafios">
-            <End Role="Desafio" EntitySet="Desafio" />
-            <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-        </EntityContainer>
-        <Association Name="UsuarioDesafios">
+        <Association Name="FK_Desafio_Usuario">
+          <End Type="AsapModel.Usuario" Role="Usuario" Multiplicity="0..1" />
           <End Type="AsapModel.Desafio" Role="Desafio" Multiplicity="*" />
-          <End Type="AsapModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Desafio">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -113,31 +98,24 @@
           <EntitySetMapping Name="Desafio">
             <EntityTypeMapping TypeName="AsapModel.Desafio">
               <MappingFragment StoreEntitySet="Desafio">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Controladora" ColumnName="Controladora" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="AsapModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="EsProfesor" ColumnName="EsProfesor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="UsuarioDesafios" TypeName="AsapModel.UsuarioDesafios" StoreEntitySet="UsuarioDesafios">
-            <EndProperty Name="Usuario">
-              <ScalarProperty Name="ID" ColumnName="UsuarioID" />
-            </EndProperty>
-            <EndProperty Name="Desafio">
-              <ScalarProperty Name="ID" ColumnName="DesafioID" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

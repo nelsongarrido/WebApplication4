@@ -11,10 +11,11 @@ namespace WebApplication4.Controllers
 {
     public class HomeController : Controller
     {
+        Models.AsapEntities _dbClient = new Models.AsapEntities();
+
+
         public ActionResult Index()
         {
-            Models.AsapEntities _dbClient = new Models.AsapEntities();
-
             var currentClaims = ClaimsPrincipal.Current;
 
             if (currentClaims.Identity.IsAuthenticated)
@@ -78,7 +79,42 @@ namespace WebApplication4.Controllers
 
         public ActionResult CrearDesafio()
         {
-            return PartialView("MyPartialViews/_CrearDesafio");
+            //var usuarioDesafioCustom = new List<Models.UsuarioDesafioCustom>();
+            var usuarios = _dbClient.Usuario.Where(f => f.EsProfesor == false).ToList();
+
+            //foreach (var u in usuarios)
+            //{
+            //    foreach (var d in u.Desafios)
+            //    {
+            //        var usd = new Models.UsuarioDesafioCustom();
+            //        usd.User = u;
+            //        usd.Desafio = d;
+
+            //        usuarioDesafioCustom.Add(usd);
+            //    }
+            //}
+            return PartialView("MyPartialViews/_CrearDesafio", usuarios);
         }
+
+        //public ActionResult DeleteDesafioByUser()
+        //{
+            //bool result = true;
+            //return Json(new { result }, JsonRequestBehavior.AllowGet);
+            //var usuarioDesafioCustom = new List<Models.UsuarioDesafioCustom>();
+            //var usuarios = _dbClient.Usuario.Where(f => f.EsProfesor == false).ToList();
+
+            //foreach (var u in usuarios)
+            //{
+            //    foreach (var d in u.Desafios)
+            //    {
+            //        var usd = new Models.UsuarioDesafioCustom();
+            //        usd.User = u;
+            //        usd.Desafio = d;
+
+            //        usuarioDesafioCustom.Add(usd);
+            //    }
+            //}
+            //return PartialView("MyPartialViews/_CrearDesafio", usuarioDesafioCustom);
+       // }
     }
 }

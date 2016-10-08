@@ -14,18 +14,12 @@ namespace WebApplication4.Models
     
     public partial class Desafio
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Desafio()
-        {
-            this.Usuario = new HashSet<Usuario>();
-        }
-    
         public int ID { get; set; }
         public string Nombre { get; set; }
         public string Accion { get; set; }
         public string Controladora { get; set; }
+        public Nullable<int> UsuarioID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

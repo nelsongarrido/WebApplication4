@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c7f6304ac20147d2a1f32b43f3bb6638" Name="Diagram1">
-        <EntityTypeShape EntityType="AsapModel.Desafio" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AsapModel.Usuario" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="AsapModel.UsuarioDesafios" />
+        <EntityTypeShape EntityType="AsapModel.Desafio" Width="1.5" PointX="4.25" PointY="0.75" />
+        <EntityTypeShape EntityType="AsapModel.Usuario" Width="1.5" PointX="2" PointY="0.875" />
+        <AssociationConnector Association="AsapModel.FK_Desafio_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
