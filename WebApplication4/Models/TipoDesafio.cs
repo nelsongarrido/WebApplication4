@@ -12,19 +12,18 @@ namespace WebApplication4.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Desafio
+    public partial class TipoDesafio
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TipoDesafio()
+        {
+            this.Desafio = new HashSet<Desafio>();
+        }
+    
         public int ID { get; set; }
         public string Nombre { get; set; }
-        public string Accion { get; set; }
-        public string Controladora { get; set; }
-        public Nullable<int> UsuarioID { get; set; }
-        public Nullable<int> TipoDesafioID { get; set; }
-        public string Letras { get; set; }
-        public string Palabra { get; set; }
-        public string Imagen { get; set; }
     
-        public virtual TipoDesafio TipoDesafio { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Desafio> Desafio { get; set; }
     }
 }

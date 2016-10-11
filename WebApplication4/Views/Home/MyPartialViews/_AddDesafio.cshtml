@@ -1,1 +1,19 @@
-﻿<h1>fffffffff</h1>
+﻿@model WebApplication4.Models.Desafio
+
+<h1>Crear Desafio</h1>
+
+@using (Html.BeginForm("AddDesafio", "Desafio", FormMethod.Post))
+{
+    <p>
+        Nombre: @Html.TextBoxFor(f => f.Nombre) <br />
+        Accion: @Html.TextBoxFor(f => f.Accion) <br />
+        Controladora: @Html.TextBoxFor(f => f.Controladora) <br />
+        Usuario: @Html.DropDownListFor(f => f.UsuarioID, new SelectList(ViewBag.Usuarios, "ID", "Nombre")) <br />
+        TipoDesafio: @Html.DropDownListFor(f => f.TipoDesafioID, new SelectList(ViewBag.TipoDesafio, "ID", "Nombre")) <br />
+
+
+        @Html.Partial("~/Views/Home/MyControls/_ImageControl.cshtml", Model)
+        
+        <input type="submit" value="Save" />
+    </p>
+}

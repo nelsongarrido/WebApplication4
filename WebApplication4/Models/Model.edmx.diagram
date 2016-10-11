@@ -5,10 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c7f6304ac20147d2a1f32b43f3bb6638" Name="Diagram1">
-        <EntityTypeShape EntityType="AsapModel.Desafio" Width="1.5" PointX="4.25" PointY="0.75" />
-        <EntityTypeShape EntityType="AsapModel.Usuario" Width="1.5" PointX="2" PointY="0.875" />
+        <EntityTypeShape EntityType="AsapModel.Usuario" Width="1.5" PointX="0.5" PointY="0.75" />
+        <EntityTypeShape EntityType="AsapModel.TipoDesafio" Width="1.5" PointX="6" PointY="1.125" />
+        <EntityTypeShape EntityType="AsapModel.Desafio" Width="1.5" PointX="3.375" PointY="0.875" />
+        <AssociationConnector Association="AsapModel.FK_Desafio_TipoDesafio" />
         <AssociationConnector Association="AsapModel.FK_Desafio_Usuario" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -2,66 +2,18 @@
 
 @Scripts.Render("~/Scripts/MyScripts/CrearDesafio.js")
 
-@*<script>
-        $('.delete-case').on('click', function (e) {
-            e.preventDefault();
-            var tr = $(this).parents('tr:first');
-            id = $(this).prop('id');
-            $.ajax({
-                type: 'POST',
-                contentType: "application/json; charset=utf-8",
-                url: "http://localhost:1477/Home/DeleteDesafioByUser/" + id,
-                dataType: "json",
-                success: function (data) {
-                    alert('Delete success');
-
-                    // window.location.href = "http://localhost:1477/";
-                },
-                error: function () {
-                    alert('Error occured during delete.');
-                }
-            });
-        });
-    </script>*@
-
-@*<script type="text/javascript">
-        $(".delete-btn").live("click", function () {
-            var str = $(this).attr("id").split("_");
-            id = str[1];
-
-            var flag = confirm('Are you sure to delete ??');
-            if (id != "" && flag) {
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json; charset=utf-8",
-                    url: '@Url.Action("DeleteDesafioByUser", "Home")',
-                    data: { "id": id },
-                    dataType: "json",
-                    beforeSend: function () { },
-                    success: function (data) {
-                        if (data.result == true) {
-                            $("#Delete_" + id).parents("tr").remove();
-                        }
-                        else {
-                            alert('There is some error');
-                        }
-                    }
-                });
-            }
-        });
-    </script>*@
 
 <input type="button" value="Create" onclick="AddDesafio()" />
 
 <div id="addDiv" style="display:none">
-    @Html.Partial("~/Views/Home/MyPartialViews/_AddDesafio.cshtml")
+    @Html.Partial("~/Views/Home/MyPartialViews/_AddDesafio.cshtml", new WebApplication4.Models.Desafio())
 </div>
 
 @*@{
-    ViewBag.Title = "WebGrid CRUD Operations";
-    WebGrid grid = new WebGrid(rowsPerPage: 10);
-    grid.Bind(Model, autoSortAndPage: false, rowCount: 10);
-}*@
+        ViewBag.Title = "WebGrid CRUD Operations";
+        WebGrid grid = new WebGrid(rowsPerPage: 10);
+        grid.Bind(Model, autoSortAndPage: false, rowCount: 10);
+    }*@
 <div class="modal-body">
     <div class="alert alert-warning">
 
@@ -90,7 +42,7 @@
             <th></th>
         </tr>
 
-   
+
     </table>
 
 

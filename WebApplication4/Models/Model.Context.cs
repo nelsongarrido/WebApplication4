@@ -25,7 +25,8 @@ namespace WebApplication4.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Desafio> Desafio { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<TipoDesafio> TipoDesafio { get; set; }
+        public virtual DbSet<Desafio> Desafio { get; set; }
     }
 }

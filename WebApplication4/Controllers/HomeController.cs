@@ -74,7 +74,7 @@ namespace WebApplication4.Controllers
 
         public ActionResult Desafio2()
         {
-            return PartialView("MyPartialViews/_Desafio1");
+            return PartialView("MyPartialViews/_Desafio2");
         }
 
         public ActionResult CrearDesafio()
@@ -93,28 +93,10 @@ namespace WebApplication4.Controllers
             //        usuarioDesafioCustom.Add(usd);
             //    }
             //}
-            return PartialView("MyPartialViews/_CrearDesafio", usuarios);
+            ViewBag.Usuarios = _dbClient.Usuario.Where(f => f.EsProfesor == false).ToList();
+            ViewBag.TipoDesafio = _dbClient.TipoDesafio.ToList();
+
+            return PartialView("MyPartialViews/_CrearDesafio");
         }
-
-        //public ActionResult DeleteDesafioByUser()
-        //{
-            //bool result = true;
-            //return Json(new { result }, JsonRequestBehavior.AllowGet);
-            //var usuarioDesafioCustom = new List<Models.UsuarioDesafioCustom>();
-            //var usuarios = _dbClient.Usuario.Where(f => f.EsProfesor == false).ToList();
-
-            //foreach (var u in usuarios)
-            //{
-            //    foreach (var d in u.Desafios)
-            //    {
-            //        var usd = new Models.UsuarioDesafioCustom();
-            //        usd.User = u;
-            //        usd.Desafio = d;
-
-            //        usuarioDesafioCustom.Add(usd);
-            //    }
-            //}
-            //return PartialView("MyPartialViews/_CrearDesafio", usuarioDesafioCustom);
-       // }
     }
 }

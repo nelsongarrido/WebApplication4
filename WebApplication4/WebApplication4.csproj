@@ -222,6 +222,7 @@
     <Compile Include="App_Start\SessionAuthenticationConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DesafioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -250,6 +251,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TipoDesafio.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -437,10 +441,13 @@
     <Content Include="Views\Home\MyPartialViews\_Desafio1.cshtml" />
     <Content Include="Views\Home\MyPartialViews\_CrearDesafio.cshtml" />
     <Content Include="Views\Home\MyPartialViews\_AddDesafio.cshtml" />
+    <Content Include="Views\Home\MyControls\_ImageControl.cshtml" />
+    <Content Include="Views\Home\MyPartialViews\_Desafio2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="mail\" />
+    <Folder Include="Views\Desafio\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
