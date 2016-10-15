@@ -193,15 +193,19 @@
                                 <ul class="dropdown-menu">
                                     @foreach (var item in @ViewBag.Desafios)
                                     {
-                                        <li>  @Html.ActionLink((string)item.Nombre, (string)item.Accion, (string)item.Controladora, null, new { @class = "modal-link", @style = "font-size:x-small ; color: gray" })</li>
+                                        <li>
+                                            @Html.ActionLink((string)item.Nombre, (string)item.Accion, (string)item.Controladora, new { desafioID = (int)item.ID }, new { @class = "modal-link", @style = "font-size:x-small ; color: gray" })
+                                        </li>
                                     }
-                                    <li>  @Html.ActionLink("Logout ", "Logout", "Home", null, new { @style = "font-size:x-small ; color: gray" })</li>
+                                    <li>
+                                        @Html.ActionLink("Logout ", "Logout", "Home", null, new { @style = "font-size:x-small ; color: gray" })
+                                    </li>
                                     @*<li><a href="/Home/Logout/" style="font-size:x-small ;color:gray">Logout</a></li>*@
                                 </ul>
                             </div>
                         }
-                                    else
-                                    {
+                        else
+                        {
                             @*@Html.ActionLink("Login", "Login")*@
                             <a style="font-size:x-small ;color:gray" onclick="window.signin();" href="#">Login</a>
                             @*<p><a href="#" class="btn btn-primary btn-lg" onclick="window.signin();">Login with Auth0</a></p>*@

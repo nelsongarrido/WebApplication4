@@ -67,14 +67,15 @@ namespace WebApplication4.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Desafio1()
+        public ActionResult Desafio1(int desafioID)
         {
-            return PartialView("MyPartialViews/_Desafio1");
+            var desafio = _dbClient.Desafio.First(f => f.ID == desafioID);
+            return PartialView("MyPartialViews/_Desafio1", desafio);
         }
 
-        public ActionResult Desafio2()
+        public ActionResult Desafio2(object desafio)
         {
-            return PartialView("MyPartialViews/_Desafio2");
+            return PartialView("MyPartialViews/_Desafio2", desafio);
         }
 
         public ActionResult CrearDesafio()
